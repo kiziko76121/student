@@ -48,6 +48,7 @@ else
                     @item.fScore
                 </td>
                 <td>
+                    @Html.ActionLink("修改", "Edit", new { id = item.fStuId }, new { @class = "btn btn-danger" }) 
                     @Html.ActionLink("刪除", "Delete", new { id = item.fStuId }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

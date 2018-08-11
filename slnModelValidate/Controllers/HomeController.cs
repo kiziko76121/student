@@ -34,7 +34,7 @@ namespace slnModelValidate.Controllers
             return View(student);
         }
 
-        public ActionResult Delete(String id)
+        public ActionResult Delete(string id)
         {
             var student = db.tStudent.
                 Where(m=>m.fStuId==id).FirstOrDefault();
@@ -42,18 +42,42 @@ namespace slnModelValidate.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-            public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+
+        public ActionResult Edit(string id)
+        {
+            var student = db.tStudent.
+                Where(m => m.fStuId == id).FirstOrDefault();
+            return View(student);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+         [HttpPost]
+         public ActionResult Edit
+             (string id, string name, string email, string score)
+         {
+            if (score == null)
+            {
+                score = "0";
+            }
+            tStudent student = db.tStudent.
+                 Where(m => m.fStuId == id).FirstOrDefault();
+             student.fName = name;
+             student.fEmail = email;
+            Console.WriteLine(score);
 
-            return View();
-        }
+            student.fScore = int.Parse(score);
+            try {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
+             
+             return RedirectToAction("Index");
+         }
+         
+        
+
     }
 }
